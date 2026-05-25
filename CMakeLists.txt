@@ -11,8 +11,13 @@ find_package(VERILATOR REQUIRED)
 file(GLOB RTL_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/*.sv"
 )
+file(GLOB SIM_SOURCES
+    "${CMAKE_SOURCE_DIR}/sim/*.cpp"
+)
 
-add_executable(Vtop ./sim/sim_main.cpp)
+add_executable(Vtop
+    ${SIM_SOURCES}
+)
 
 verilate(Vtop
     SOURCES
