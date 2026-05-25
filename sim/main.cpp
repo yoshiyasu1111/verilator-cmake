@@ -28,7 +28,9 @@ int main(int argc, char** argv) {
   sim->top_ptr()->final();
 
   while (renderer->poll_events()) {
-    
+    renderer->begin_frame();
+    renderer->draw_color_bars();
+    renderer->end_frame();
   }
 
   return 0;
