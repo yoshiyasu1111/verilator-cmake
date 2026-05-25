@@ -1,41 +1,41 @@
 #include "simulator.h"
 
 Simulator::Simulator(int argc, char** argv) {
-    contextp = std::make_unique<VerilatedContext>();
-    contextp->commandArgs(argc, argv);
+    contextp_ = std::make_unique<VerilatedContext>();
+    contextp_->commandArgs(argc, argv);
 
-    top = std::make_unique<Vtop>(contextp.get(), "");
+    top_ = std::make_unique<Vtop>(contextp_.get(), "");
 
-    top->clk    = 0;
-    top->rst_n  = 0;
+    top_->clk    = 0;
+    top_->rst_n  = 0;
 }
 
 void Simulator::eval() {
-    top->eval();
+    top_->eval();
 }
 
 void Simulator::tick() {
     // Rising edge
-    top->clk = 1;
-    top->eval();
-    contextp->timeInc(CLK_HALF_PERIOD);
+    top_->clk = 1;
+    top_->eval();
+    contextp_->timeInc(CLK_HALF_PERIOD);
 
     // Falling edge
-    top->clk = 0;
-    top->eval();
-    contextp->timeInc(CLK_HALF_PERIOD);
+    top_->clk = 0;
+    top_->eval();
+    contextp_->timeInc(CLK_HALF_PERIOD);
 }
 
 void Simulator::reset(uint32_t cycles) {
-    top->rst_n = 0;
-    top->eval();
+    top_->rst_n = 0;
+    top_->eval();
 
     for (uint32_t i = 0; i < cycles; i++) {
         tick();
     }
-    top->rst_n = 1;
+    top_->rst_n = 1;
 }
 
 uint64_t Simulator::time() const {
-    return contextp->time();
+    return contextp_->time();
 }

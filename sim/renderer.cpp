@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include <array> 
 #include <stdexcept>
 #include <string_view>
 
@@ -20,15 +21,18 @@ Renderer::Renderer(std::string_view title, int width, int height)
 }
 
 Renderer::~Renderer() {
-  if (renderer_) SDL_DestroyRenderer(renderer_);
-  if (window_)   SDL_DestroyWindow(window_);
+  if (renderer_)
+    SDL_DestroyRenderer(renderer_);
+  if (window_)
+    SDL_DestroyWindow(window_);
   SDL_Quit();
 }
 
 bool Renderer::poll_events() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_EVENT_QUIT) return false;
+    if (event.type == SDL_EVENT_QUIT)
+      return false;
   }
   return true;
 }
@@ -38,35 +42,19 @@ void Renderer::begin_frame() {
   SDL_RenderClear(renderer_);
 }
 
-void Renderer::end_frame() {
-  SDL_RenderPresent(renderer_);
-}
+void Renderer::end_frame() { SDL_RenderPresent(renderer_); }
 
-void Renderer::draw_color_bars() {
-  // EBUカラーバー風の7色
-  const SDL_Color colors[] = {
-    {192, 192, 192, 255}, // グレー
-    {192, 192,   0, 255}, // イエロー
-    {  0, 192, 192, 255}, // シアン
-    {  0, 192,   0, 255}, // グリーン
-    {192,   0, 192, 255}, // マゼンタ
-    {192,   0,   0, 255}, // レッド
-    {  0,   0, 192, 255}, // ブルー
-  };
-
+void Renderer::draw_color_bars(const std::array<uint8_t, 7> &r,
+                               const std::array<uint8_t, 7> &g,
+                               const std::array<uint8_t, 7> &b) {
   const int num_bars = 7;
   const float bar_width = static_cast<float>(width_) / num_bars;
 
   for (int i = 0; i < num_bars; i++) {
-    const auto& c = colors[i];
-    SDL_SetRenderDrawColor(renderer_, c.r, c.g, c.b, c.a);
+    SDL_SetRenderDrawColor(renderer_, r[i], g[i], b[i], 255);
 
-    SDL_FRect rect = {
-      i * bar_width,
-      0.0f,
-      bar_width,
-      static_cast<float>(height_)
-    };
+    SDL_FRect rect = {i * bar_width, 0.0f, bar_width,
+                      static_cast<float>(height_)};
     SDL_RenderFillRect(renderer_, &rect);
   }
 }

@@ -29,9 +29,16 @@ int main(int argc, char** argv) {
 
   while (renderer->poll_events()) {
     renderer->begin_frame();
-    renderer->draw_color_bars();
+
+    std::array<uint8_t, 7> r, g, b;
+    for (int i = 0; i < 7; i++) {
+      r[i] = sim->top_ptr()->bar_r[i];
+      g[i] = sim->top_ptr()->bar_g[i];
+      b[i] = sim->top_ptr()->bar_b[i];
+    }
+
+    renderer->draw_color_bars(r, g, b);
     renderer->end_frame();
   }
-
   return 0;
 }

@@ -11,7 +11,9 @@ public:
     bool poll_events();
     void begin_frame();
     void end_frame();
-    void draw_color_bars();
+    void draw_color_bars(const std::array<uint8_t, 7>& r,
+                         const std::array<uint8_t, 7>& g,
+                         const std::array<uint8_t, 7>& b);
 
 private:
     SDL_Window*   window_   = nullptr;

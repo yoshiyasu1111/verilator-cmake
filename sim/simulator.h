@@ -18,10 +18,10 @@ public:
 
     uint64_t time() const;
 
-    VerilatedContext*   context_ptr()   const { return contextp.get(); }
-    Vtop*               top_ptr()       const { return top.get(); }
+    VerilatedContext*   context_ptr()   const { return contextp_.get(); }
+    Vtop*               top_ptr()       const { return top_.get(); }
 
 private:
-    std::unique_ptr<VerilatedContext>   contextp;
-    std::unique_ptr<Vtop>               top;
+    std::unique_ptr<VerilatedContext>   contextp_;
+    std::unique_ptr<Vtop>               top_;
 };
