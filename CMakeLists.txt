@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+include(cmake/sdl3.cmake)
+
 find_package(VERILATOR REQUIRED)
 
 file(GLOB RTL_SOURCES CONFIGURE_DEPENDS
@@ -17,6 +19,11 @@ file(GLOB SIM_SOURCES
 
 add_executable(Vtop
     ${SIM_SOURCES}
+)
+
+target_link_libraries(Vtop
+    PRIVATE
+        SDL3::SDL3
 )
 
 verilate(Vtop
