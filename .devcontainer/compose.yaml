@@ -1,0 +1,14 @@
+services:
+
+  verilator:
+    image: verilator
+    container_name: verilator
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/work:cached
+    tty: true
+    command: sleep infinity
+    ports:
+      - 5900:5900

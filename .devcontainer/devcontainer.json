@@ -1,0 +1,19 @@
+{
+    "name": "verilator",
+    "dockerComposeFile": [
+        "compose.yaml"
+    ],
+    "service": "verilator",
+    "remoteUser": "veriuser",
+    "workspaceFolder": "/work",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mshr-h.VerilogHDL",
+                "ms-vscode.cpptools-extension-pack",
+                "lramseyer.vaporview",
+                "ritwickdey.LiveServer"
+            ]
+        }
+    }
+}
