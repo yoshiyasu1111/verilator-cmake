@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/share/verilator/include",
+                "/usr/local/share/verilator/include/vltstd",
+                "${workspaceFolder}/build/sim/CMakeFiles/Vtop.dir"
+            ]
+        }
+    ],
+    "version": 4
+}

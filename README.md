@@ -17,7 +17,7 @@ $ cmake --build build
 ## 実行
 
 ```bash
-$ ./build/Vtop
+$ ./build/sim/Vtop
 ```
 
 ## vnc
